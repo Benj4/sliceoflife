@@ -18,18 +18,32 @@ god = {
   
     createEarht: function(){
         var m = [Math.floor((Math.random()*world.x)+1), Math.floor((Math.random()*world.y)+1), Math.floor((Math.random()*world.z)+1)];
-        console.log(m);
-        for (var k = 0; k < world.z; k++){
-            for (var j = 0; j < world.y; j++){
-                var xx = '';
-                for (var i = 0; i < world.x; i++){
-                    var dis = Math.round( Math.sqrt( Math.pow(m[0] - i, 2) + Math.pow(m[1] - j , 2) ) ); 
-                    if(dis < (m[2])){ //distancia x menor a z
-                        xx += '|';
+        
+        for (var xx = 0; xx < world.x; xx++){
+            world.earht[xx] = [];
+            for (var yy = 0; yy < world.y; yy++){
+                world.earht[xx][yy] = [];
+                for (var zz = 0; zz < world.z; zz++){
+                    world.earht[xx][yy][zz] = 0;
+                }   
+            }   
+        }
+        
+        
+        for (var yy = 0; yy < world.y; yy++){
+            for (var zz = 0; zz < world.z; zz++){
+                for (var xx = 0; xx < world.x; xx++){
+                    var dis = Math.round( Math.sqrt( Math.pow(m[0] - xx, 2) + Math.pow(m[2] - zz , 2) ) ); 
+                    if(dis < (m[1] - yy )){ //distancia x menor a y -y
+                        try {
+                            world.earht[xx][yy][zz] = 1;
+                        }catch (e){
+                            console.log(xx+' '+yy+' '+zz);
+                        }
+                        
                     }
                     
                 }   
-                console.log(xx);
             }   
         }
         // crear el terreno con diferentes materias
@@ -41,6 +55,33 @@ god = {
     }
     
 };
+
+function viewy(yy){
+    
+    var canvas = document.getElementById('ejex');
+    var context = canvas.getContext('2d');
+    
+    context.clearRect(0, 0, context.width, context.height);
+    
+    for (var zz = 0; zz < world.z; zz++){
+        for (var xx = 0; xx < world.x; xx++){
+//            try {
+                if(world.earht[xx][yy][zz] === 1){
+                    console.log('uno');
+                    context.beginPath();
+                    context.arc(xx, zz, 1, 0, 2 * Math.PI, false);
+                    context.lineWidth = 1;
+                    context.strokeStyle = '#003300';
+                    context.stroke();
+                }
+                
+//            }catch (e){
+//                console.log(xx+' '+yy+' '+zz);
+//            }
+            
+        }   
+    }   
+}
 
 quickEach = function() {
     var jq = jQuery([1]);
