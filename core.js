@@ -1,18 +1,37 @@
 
 world = {
     eles: [],
-    x: 100,
-    y: 50,
-    z: 100,
+    x: 200,
+    y: 100,
+    z: 200,
     earht: [[[]]], //mundo tridimencional
     
     newl: function(l, position) { // al crearce una nueva vida
-
+        
+        if(typeof l == 'undefined'){
+            l = new L();
+        }
+        if(typeof position == 'undefined'){
+            position = [Math.floor((Math.random()*world.x)+1),
+                        (world.y),
+                        Math.floor((Math.random()*world.z)+1)];
+        }
+        
+        for (var yy = world.y; yy > 0; yy--){
+            if(world.earht[position[0]][yy][position[2]] !== 0){
+                position[1] = yy + 1;
+                break;
+            }
+            
+        }   
+        
+        l.position = position;
         this.eles.push(l);
     }
 
 };
 
+xyzRender = [0,0,0];
 
 god = {
   
@@ -52,7 +71,10 @@ god = {
     
 };
 
-function viewy(yy){
+function viewy(yy, evitaloop){
+    evitaloop = (typeof evitaloop === 'undefined')? false : evitaloop;
+    
+    xyzRender[1] = yy;
     var canvas = document.getElementById('ejex');
     var context = canvas.getContext('2d');
 
@@ -62,16 +84,38 @@ function viewy(yy){
         for (var xx = 0; xx < world.x; xx++){
             if(world.earht[xx][yy][zz] === 1){
                 context.beginPath();
-                context.arc(xx, zz, 1, 0, 2 * Math.PI, false);
+                context.arc(zz, xx, 1, 0, 2 * Math.PI, false);
                 context.lineWidth = 1;
-                context.strokeStyle = '#003300';
+                context.strokeStyle = '#088A08';
                 context.stroke();
             }
         }   
     }   
+    
+    context.beginPath();
+    context.strokeStyle = "#f00";
+    context.moveTo(xyzRender[2],0);
+    context.lineTo(xyzRender[2],world.x);
+    context.lineWidth = 1;
+    context.stroke();
+    
+    context.beginPath();
+    context.strokeStyle = "#0000FF";
+    context.moveTo(0,xyzRender[0]);
+    context.lineTo(world.z,xyzRender[0]);
+    context.lineWidth = 1;
+    context.stroke();
+    
+    if(evitaloop) return false;
+    viewz(xyzRender[2], true);
+    viewx(xyzRender[0], true);
+    
 }
 
-function viewz(zz){
+function viewz(zz, evitaloop){
+    evitaloop = (typeof evitaloop === 'undefined')? false : evitaloop;
+    
+    xyzRender[2] = zz;
     var canvas = document.getElementById('ejez');
     var context = canvas.getContext('2d');
 
@@ -81,16 +125,38 @@ function viewz(zz){
         for (var xx = 0; xx < world.x; xx++){
             if(world.earht[xx][yy][zz] === 1){
                 context.beginPath();
-                context.arc(xx, yy, 1, 0, 2 * Math.PI, false);
+                context.arc(xx, canvas.height- yy, 1, 0, 2 * Math.PI, false);
                 context.lineWidth = 1;
-                context.strokeStyle = '#003300';
+                context.strokeStyle = '#f00';
                 context.stroke();
             }
         }   
     }
+    
+    context.beginPath();
+    context.strokeStyle = "#0000FF";
+    context.moveTo(xyzRender[0],0);
+    context.lineTo(xyzRender[0],canvas.height);
+    context.lineWidth = 1;
+    context.stroke();
+    
+    context.beginPath();
+    context.strokeStyle = "#088A08";
+    context.moveTo(0,  canvas.height - xyzRender[1]);
+    context.lineTo(world.z, canvas.height - xyzRender[1]);
+    context.lineWidth = 1;
+    context.stroke();
+    
+    if(evitaloop) return false;
+    viewy(xyzRender[1], true);
+    viewx(xyzRender[0], true);
+    
 }
 
-function viewx(xx){
+function viewx(xx, evitaloop){
+    evitaloop = (typeof evitaloop === 'undefined')? false : evitaloop;
+    
+    xyzRender[0] = xx;
     var canvas = document.getElementById('ejey');
     var context = canvas.getContext('2d');
 
@@ -100,13 +166,32 @@ function viewx(xx){
         for (var zz = 0; zz < world.z; zz++){
             if(world.earht[xx][yy][zz] === 1){
                 context.beginPath();
-                context.arc(zz, yy, 1, 0, 2 * Math.PI, false);
+                context.arc(zz, canvas.height- yy, 1, 0, 2 * Math.PI, false);
                 context.lineWidth = 1;
-                context.strokeStyle = '#003300';
+                context.strokeStyle = '#0000FF';
                 context.stroke();
             }
         }   
     }
+    
+    context.beginPath();
+    context.strokeStyle = "#f00";
+    context.moveTo(xyzRender[2],0);
+    context.lineTo(xyzRender[2],canvas.height);
+    context.lineWidth = 1;
+    context.stroke();
+    
+    context.beginPath();
+    context.strokeStyle = "#088A08";
+    context.moveTo(0,  canvas.height - xyzRender[1]);
+    context.lineTo(world.z, canvas.height - xyzRender[1]);
+    context.lineWidth = 1;
+    context.stroke();
+    
+    if(evitaloop) return false;
+    viewy(xyzRender[1], true);
+    viewz(xyzRender[2], true);
+    
 }
 
 function view(x, y, z){
