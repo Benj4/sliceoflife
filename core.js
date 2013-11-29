@@ -18,6 +18,7 @@ god = {
   
     createEarht: function(){
         var m = [Math.floor((Math.random()*world.x)+1), Math.floor((Math.random()*world.y)+1), Math.floor((Math.random()*world.z)+1)];
+        console.log(m);
         
         for (var xx = 0; xx < world.x; xx++){
             world.earht[xx] = [];
@@ -35,12 +36,7 @@ god = {
                 for (var xx = 0; xx < world.x; xx++){
                     var dis = Math.round( Math.sqrt( Math.pow(m[0] - xx, 2) + Math.pow(m[2] - zz , 2) ) ); 
                     if(dis < (m[1] - yy )){ //distancia x menor a y -y
-                        try {
-                            world.earht[xx][yy][zz] = 1;
-                        }catch (e){
-                            console.log(xx+' '+yy+' '+zz);
-                        }
-                        
+                        world.earht[xx][yy][zz] = 1;
                     }
                     
                 }   
@@ -57,30 +53,68 @@ god = {
 };
 
 function viewy(yy){
-    
     var canvas = document.getElementById('ejex');
     var context = canvas.getContext('2d');
-    
-    context.clearRect(0, 0, context.width, context.height);
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
     
     for (var zz = 0; zz < world.z; zz++){
         for (var xx = 0; xx < world.x; xx++){
-//            try {
-                if(world.earht[xx][yy][zz] === 1){
-                    console.log('uno');
-                    context.beginPath();
-                    context.arc(xx, zz, 1, 0, 2 * Math.PI, false);
-                    context.lineWidth = 1;
-                    context.strokeStyle = '#003300';
-                    context.stroke();
-                }
-                
-//            }catch (e){
-//                console.log(xx+' '+yy+' '+zz);
-//            }
-            
+            if(world.earht[xx][yy][zz] === 1){
+                context.beginPath();
+                context.arc(xx, zz, 1, 0, 2 * Math.PI, false);
+                context.lineWidth = 1;
+                context.strokeStyle = '#003300';
+                context.stroke();
+            }
         }   
     }   
+}
+
+function viewz(zz){
+    var canvas = document.getElementById('ejez');
+    var context = canvas.getContext('2d');
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    
+    for (var yy = 0; yy < world.y; yy++){
+        for (var xx = 0; xx < world.x; xx++){
+            if(world.earht[xx][yy][zz] === 1){
+                context.beginPath();
+                context.arc(xx, yy, 1, 0, 2 * Math.PI, false);
+                context.lineWidth = 1;
+                context.strokeStyle = '#003300';
+                context.stroke();
+            }
+        }   
+    }
+}
+
+function viewx(xx){
+    var canvas = document.getElementById('ejey');
+    var context = canvas.getContext('2d');
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    
+    for (var yy = 0; yy < world.y; yy++){
+        for (var zz = 0; zz < world.z; zz++){
+            if(world.earht[xx][yy][zz] === 1){
+                context.beginPath();
+                context.arc(zz, yy, 1, 0, 2 * Math.PI, false);
+                context.lineWidth = 1;
+                context.strokeStyle = '#003300';
+                context.stroke();
+            }
+        }   
+    }
+}
+
+function view(x, y, z){
+    
+    viewx(x);
+    viewy(y);
+    viewz(z);
+    
 }
 
 quickEach = function() {
