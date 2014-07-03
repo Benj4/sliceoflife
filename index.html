@@ -2,7 +2,6 @@
 <html>
     <head>
         <script type="text/javascript" src="l.js"></script>
-        <script type="text/javascript" src="ui/jquery-1.10.2.min.js"></script>
         
         <style>
             .contenteje{
@@ -31,19 +30,19 @@
             <div class="contenteje" > 
                 X,Z
                 <canvas id="ejex" width='200' height='200'></canvas>
-                <input id="slider1" type="range" min="0" max="200" step="1" class="slider" onchange="printValue('slider1','inputxrange'); viewy(parseInt(this.value));" />
+                <input id="slider1" type="range" min="0" max="99" step="1" class="slider" onchange="printValue('slider1','inputxrange'); viewy(parseInt(this.value));" />
                 <input id="inputxrange" size="2" type="text" class="inputSlider">
             </div>
             <div class="contenteje">
                 Z,Y
                 <canvas id="ejez" width='200' height='200'></canvas>
-                <input id="slider2" type="range" min="0" max="200" step="1" class="slider" onchange="printValue('slider2','inputzrange'); viewz(parseInt(this.value));"/>
+                <input id="slider2" type="range" min="0" max="199" step="1" class="slider" onchange="printValue('slider2','inputzrange'); viewz(parseInt(this.value));"/>
                 <input id="inputzrange" size="2" type="text" class="inputSlider">
             </div>
             <div class="contenteje">
                 X,Y
                 <canvas id="ejey" width='200' height='200'></canvas>
-                <input id="slider3" type="range" min="0" max="200" step="1" class="slider" onchange="printValue('slider3','inputyrange'); viewx(parseInt(this.value));"/>
+                <input id="slider3" type="range" min="0" max="199" step="1" class="slider" onchange="printValue('slider3','inputyrange'); viewx(parseInt(this.value));"/>
                 <input id="inputyrange" size="2" type="text" class="inputSlider">
             </div>
             
