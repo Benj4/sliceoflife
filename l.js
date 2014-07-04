@@ -36,4 +36,3 @@ function L(){
 }
 
 
-var l = new L();

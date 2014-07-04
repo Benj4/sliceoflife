@@ -45,7 +45,9 @@
                 <input id="slider3" type="range" min="0" max="199" step="1" class="slider" onchange="printValue('slider3','inputyrange'); viewx(parseInt(this.value));"/>
                 <input id="inputyrange" size="2" type="text" class="inputSlider">
             </div>
-            
+            <div class="contenteje">
+                <canvas id="topview" width='200' height='200'></canvas>
+            </div>
             
         </div>
         
@@ -56,6 +58,33 @@
                 var y = document.getElementById(sliderID);
                 x.value = y.value;
             }
+        </script>
+        <script>
+          for(var i = 0; i < 100; i++){
+            world.newl();
+          }
+          
+          
+          smootrender();
+          function smootrender(){
+            viewtop();          
+            setTimeout(function(){smootrender()}, 100);
+          }
+          
+//          setInterval(function(){ viewtop(); }, 500);
+          
+          setInterval(function(){ 
+          
+              for(var l in world.eles){
+                var newx = Math.floor((Math.random()* 3) - (Math.random()* 2));
+                var newy = Math.floor((Math.random()* 3) - (Math.random()* 2));
+                world.eles[l]['position'][0] = world.eles[l]['position'][0] + newx;
+                world.eles[l]['position'][2] = world.eles[l]['position'][2] + newy;
+              }
+              
+          }, 1);
+          
+          
         </script>
     </body>
 </html>

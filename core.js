@@ -8,16 +8,16 @@ world = {
     
     newl: function(l, position) { // al crearce una nueva vida
         
-        if(typeof l == 'undefined'){
+        if(typeof l == 'undefined' || l == null){
             l = new L();
         }
         if(typeof position == 'undefined'){
-            position = [Math.floor((Math.random()*world.x)+1),
-                        (world.y),
-                        Math.floor((Math.random()*world.z)+1)];
+            position = [Math.floor((Math.random()*world.x)),
+                        (world.y - 1),
+                        Math.floor((Math.random()*world.z))];
         }
         
-        for (var yy = world.y; yy > 0; yy--){
+        for (var yy = world.y - 1; yy > 0; yy--){
             if(world.earht[position[0]][yy][position[2]] !== 0){
                 position[1] = yy + 1;
                 break;
@@ -37,7 +37,7 @@ god = {
   
     createEarht: function(){
         var m = [Math.floor((Math.random()*world.x)+1), Math.floor((Math.random()*world.y)+1), Math.floor((Math.random()*world.z)+1)];
-        console.log(m);
+//        console.log(m);
         
         for (var xx = 0; xx < world.x; xx++){
             world.earht[xx] = [];
@@ -62,6 +62,7 @@ god = {
             }   
         }
         // crear el terreno con diferentes materias
+        
     },
             
     step: function(){
@@ -197,6 +198,23 @@ function viewx(xx, evitaloop){
     viewy(xyzRender[1], true);
     viewz(xyzRender[2], true);
     
+}
+
+function viewtop(){
+  
+    var canvas = document.getElementById('topview');
+    var context = canvas.getContext('2d');
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  
+  
+    for(var l in world.eles){
+      context.strokeStyle = "#000000";
+      context.fillRect(world.eles[l]['position'][0],world.eles[l]['position'][2],1,1);
+//      console.log(world.eles[l]);
+    }
+  
+  
 }
 
 function view(x, y, z){
