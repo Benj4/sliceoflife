@@ -58,6 +58,14 @@
                 var y = document.getElementById(sliderID);
                 x.value = y.value;
             }
+            
+            var s = document.getElementById("slider1");
+            s.addEventListener("input", function() {
+                printValue('slider1','inputxrange'); 
+                viewy(parseInt(s.value));
+            }, false); 
+            
+            
         </script>
         <script>
           for(var i = 0; i < 100; i++){
@@ -68,7 +76,7 @@
           smootrender();
           function smootrender(){
             viewtop();          
-            setTimeout(function(){smootrender()}, 100);
+            setTimeout(function(){smootrender()}, 40);
           }
           
 //          setInterval(function(){ viewtop(); }, 500);
@@ -82,7 +90,7 @@
                 world.eles[l]['position'][2] = world.eles[l]['position'][2] + newy;
               }
               
-          }, 1);
+          }, 30);
           
           
         </script>

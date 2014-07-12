@@ -84,11 +84,15 @@ function viewy(yy, evitaloop){
     for (var zz = 0; zz < world.z; zz++){
         for (var xx = 0; xx < world.x; xx++){
           if(world.earht[xx][yy][zz] === 1){
-              context.beginPath();
-              context.arc(zz, xx, 1, 0, 2 * Math.PI, false);
-              context.lineWidth = 1;
-              context.strokeStyle = '#088A08';
-              context.stroke();
+            
+              context.fillStyle = '#088A08';
+              context.fillRect(zz,xx,1,1);
+            
+//              context.beginPath();
+//              context.arc(zz, xx, 1, 0, 2 * Math.PI, false);
+//              context.lineWidth = 1;
+//              context.strokeStyle = '#088A08';
+//              context.stroke();
           }
         }   
     }   
